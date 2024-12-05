@@ -1,0 +1,15 @@
+.results-container {
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 30px;
+    text-align: center;
+}
+
+.results-container h1,
+.results-container p {
+    text-align: center;
+}
+.result-image {
+    max-width: 100%;
+    height: auto;
+}
