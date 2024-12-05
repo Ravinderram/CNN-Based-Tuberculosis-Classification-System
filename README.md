@@ -1,4 +1,4 @@
-# Introduction 
+# CNN-Based Tuberculosis Classification System
 This repository contains a CNN-based machine learning project for the classification of tuberculosis from medical images. The system leverages deep learning to assist in early detection, providing a user-friendly interface through a Flask web application.<br />
 <p align="center">
   <img src="https://github.com/user-attachments/assets/800f31a9-c9ac-4e43-bab4-3ca1176bd598" alt=" Tuber culisis " />
@@ -36,7 +36,7 @@ Ensure you have the following installed:
   ```bash
   pip install -r requirements.txt
   ```
-  3. Run the Flask application(Don't forgot to give the ```.H5 model``` path or you can create your own model by running ```fgf``` ipynb file) :
+  3. Run the Flask application(Don't forgot to give the ```.H5 model``` path or you can create your own model by running ```Pretrained_model_code.ipynb``` ipynb file) :
   ``` bash
   python Flask_app.py
   ```
@@ -52,7 +52,7 @@ Ensure you have the following installed:
 - ```templates/```: HTML files for the web interface.
 - ```images/```: Image samples or datasets.
 ## Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests for improvements or bug fixes 
+Contributions are welcome! Feel free to open issues or submit pull requests for improvements or bug fixes 👏 .
 
   
   
