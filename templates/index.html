@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TB Predictor by Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: row; /* Changed the flex-direction to row */
+        }
+        .left-column, .right-column {
+            flex: 1; /* Set both columns to take equal space */
+            max-width: 50%; /* Maximum width for each column */
+        }
+        .left-column {
+            text-align: right; /* Align right for the left column */
+            padding-right: 50px; /* Add some padding for spacing */
+        }
+        .right-column {
+            text-align: left; /* Align left for the right column */
+            padding-left: 50px; /* Add some padding for spacing */
+        }
+        h1 {
+            color: #0099CC;
+        }
+        form, .camera {
+            margin-top: 20px;
+        }
+        input[type="file"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 80%; /* Adjust the input width */
+        }
+        input[type="submit"], .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover, .button:hover {background-color: #0056b3;}
+        .camera-feed {
+            width: 640px;
+            height: 480px;
+            border: 2px solid #007bff;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="left-column">
+
+         <h1 style="text-align: center;font-size: 40px;">TB Predict by Image</h1>
+        <h5 style="text-align: center;font-size: 20px;">Upload an X-ray Image</h5>
+        <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*"><br>
+            <input type="submit" value="Predict">
+        </form>
+    </div>
+
+
+    <div class="right-column">
+
+        <h6 style="text-align: center;font-size: 20px;">Live Image Capture</h6>
+        <button class="button" id="start-camera">Click to open Camera</button>
+        <div class="camera">
+            <video class="camera-feed" playsinline autoplay></video>
+            <br>
+            <button class="button" id="capture-photo">Capture Photo</button>
+        </div>
+    </div>
+
+    <div id="results"></div> <!-- Added a div to display results -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const video = document.querySelector('video');
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const startCameraButton = document.getElementById('start-camera');
+            const captureButton = document.getElementById('capture-photo');
+            const uploadForm = document.getElementById('upload-form');
+            const resultsDiv = document.getElementById('results'); // Added this line
+
+            let stream;
+
+            async function startCamera() {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                await video.play();
+                document.querySelector('.camera').style.display = 'block';
+                resultsDiv.innerHTML = ''; // Clear any previous results when starting the camera
+            }
+
+            function stopCamera() {
+                video.pause();
+                stream.getTracks().forEach(track => track.stop());
+                document.querySelector('.camera').style.display = 'none';
+            }
+
+            startCameraButton.addEventListener('click', async () => {
+                await startCamera();
+            });
+
+            captureButton.addEventListener('click', function () {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Convert canvas content to a data URL
+                const dataUrl = canvas.toDataURL('image/jpeg');
+
+                // Create a new File object from the data URL
+                const blob = dataURItoBlob(dataUrl);
+                const file = new File([blob], 'captured_photo.jpeg', { type: 'image/jpeg' });
+
+                // Create a new FormData object and append the file
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // Submit the form with the captured photo
+                fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const resultElement = document.createElement('div');
+                    resultElement.innerHTML = `<h2>Result: ${data.result}</h2><h3>Confidence Score: ${data.confidence_score}</h3>`;
+                    resultsDiv.innerHTML = ''; // Clear any previous results
+                    resultsDiv.appendChild(resultElement);
+                    stopCamera();
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            function dataURItoBlob(dataURI) {
+                const byteString = atob(dataURI.split(',')[1]);
+                const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([ab], { type: mimeString });
+            }
+
+            uploadForm.addEventListener('submit', function() {
+                stopCamera();
+            });
+        });
+    </script>
+</body>
+</html>
