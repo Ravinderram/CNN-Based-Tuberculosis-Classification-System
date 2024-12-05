@@ -24,7 +24,8 @@ The project is designed for educational and research purposes, showcasing the in
 ### Prerequisites
 Ensure you have the following installed:
 
-- Python 3.8 or later
+- Python 3.8 or later<br />
+  <img src="https://github.com/user-attachments/assets/569b949f-a55a-438b-8337-1fce54a79105" alt="Girl in a jacket" width="100" height="100">
 - pip (Python package installer)
 ## Steps
   1. Clone the repository :
