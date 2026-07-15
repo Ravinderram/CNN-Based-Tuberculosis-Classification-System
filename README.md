@@ -1,6 +1,6 @@
 # 🫁 CNN-Based Tuberculosis Classification System
 
-> Detect tuberculosis from chest X-ray images using deep learning — with transfer learning, uncertainty estimation, explainability, and a one-command training pipeline.
+> Detect tuberculosis from chest X-ray images using deep learning  with transfer learning, uncertainty estimation, explainability, and a one-command training pipeline.
 
 <p align="center">
   <img src="Screenshot 2026-07-15 193837.png" alt="Project pipeline" width="90%">
@@ -24,7 +24,7 @@ The app accepts both **file uploads** and **mobile camera** input, and for every
 
 ##  The data
 
-Trained on the **Tuberculosis (TB) Chest X-ray Database** (Qatar University, University of Dhaka, and collaborators) — 3,500 TB and 3,500 Normal 512×512 chest X-rays.
+Trained on the **Tuberculosis (TB) Chest X-ray Database** (Qatar University, University of Dhaka, and collaborators)  3,500 TB and 3,500 Normal 512×512 chest X-rays.
 
 <p align="center">
   <img src="assets/sample_xrays.png" alt="Sample chest X-rays" width="70%">
@@ -58,7 +58,7 @@ venv\Scripts\activate        # Windows
 pip install -r requirements.txt
 ```
 
-### Train, evaluate, run — three commands
+### Train, evaluate, run  three commands
 
 You only supply the path to your dataset folder. Everything else is automatic.
 
@@ -73,7 +73,7 @@ python scripts/evaluate.py --split-dir data_split
 streamlit run app.py
 ```
 
->  Training on a CPU is slow (a few hours for 7,000 images). A GPU — including Google Colab's free tier — cuts this to minutes.
+>  Training on a CPU is slow (a few hours for 7,000 images). A GPU  including Google Colab's free tier  cuts this to minutes.
 
 ### Dataset layout
 
@@ -85,7 +85,7 @@ TB_Chest_Radiography_Database/
 └── Tuberculosis/    *.png
 ```
 
-The training script auto-creates a stratified, seeded 70/15/15 split under `data_split/` — no manual sorting.
+The training script auto-creates a stratified, seeded 70/15/15 split under `data_split/` no manual sorting.
 
 ##  The app
 
@@ -93,11 +93,11 @@ The training script auto-creates a stratified, seeded 70/15/15 split under `data
 <!-- ![Upload prediction](assets/screenshot_prediction.png) -->
 <!-- ![Grad-CAM heatmap](assets/screenshot_gradcam.png) -->
 
-> **Add your own screenshots here** once the app is running — one of a prediction with the confidence interval, and one of the Grad-CAM heatmap. Save them into `assets/` and un-comment the two lines above in the README source.
+> **Add your own screenshots here** once the app is running  one of a prediction with the confidence interval, and one of the Grad-CAM heatmap. Save them into `assets/` and un-comment the two lines above in the README source.
 
 The app has two tabs:
-- **📁 Upload** — drag in a chest X-ray (`.png/.jpg`); most reliable.
-- **📷 Camera** — capture with your device camera (works on mobile browsers). Great for demos; note that camera glare/angle lower reliability, so it is labelled demo-only in the UI.
+- **📁 Upload** : drag in a chest X-ray (`.png/.jpg`); most reliable.
+- **📷 Camera** : capture with your device camera (works on mobile browsers). Great for demos; note that camera glare/angle lower reliability, so it is labelled demo-only in the UI.
 
 ##  Results
 
@@ -112,7 +112,7 @@ Run `python scripts/evaluate.py --split-dir data_split` and paste your numbers h
 | F1 | 0.9286 |
 | ROC-AUC | 0.9989 |
 
-The script also writes `reports/confusion_matrix.png`, `reports/roc_curve.png`, and `reports/threshold_sweep.csv` — add the plots here to make this section shine.
+The script also writes `reports/confusion_matrix.png`, `reports/roc_curve.png`, and `reports/threshold_sweep.csv`  add the plots here to make this section shine.
 
 ##  Project structure
 
@@ -142,7 +142,7 @@ tb-classifier/
 1. **Preprocessing** resizes each X-ray to 224×224 and scales pixels to `[0,1]`, after validating the file is a real, safe image.
 2. **MobileNetV2** (pretrained on ImageNet) extracts features; a small trained head outputs `P(Tuberculosis)`.
 3. **Monte-Carlo dropout** keeps dropout active at inference and runs 30 stochastic passes, so each prediction has a mean probability and a spread → a confidence interval.
-4. **Grad-CAM** back-propagates the score to the last convolutional layer to highlight the regions that mattered — a check that the model looks at lungs, not text or borders.
+4. **Grad-CAM** back-propagates the score to the last convolutional layer to highlight the regions that mattered , a check that the model looks at lungs, not text or borders.
 
 ##  Tech stack
 
@@ -156,8 +156,8 @@ If you use the dataset, please cite:
 
 ##  License
 
-Released under the MIT License — see [LICENSE](LICENSE). The dataset is subject to its own terms; see the citation above.
+Released under the MIT License , see [LICENSE](LICENSE). The dataset is subject to its own terms; see the citation above.
 
-## 🙏 Disclaimer
+##  Disclaimer
 
 This project is for learning and demonstration only. It has **no clinical validation** and must never be used to make real medical decisions. Always consult a qualified healthcare professional.
