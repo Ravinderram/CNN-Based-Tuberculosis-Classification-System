@@ -3,7 +3,7 @@
 > Detect tuberculosis from chest X-ray images using deep learning — with transfer learning, uncertainty estimation, explainability, and a one-command training pipeline.
 
 <p align="center">
-  <img src="assets/pipeline.png" alt="Project pipeline" width="90%">
+  <img src="Screenshot 2026-07-15 193837.png" alt="Project pipeline" width="90%">
 </p>
 
 ![Python](https://img.shields.io/badge/Python-3.10--3.13-blue)
