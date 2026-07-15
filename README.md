@@ -105,12 +105,12 @@ Run `python scripts/evaluate.py --split-dir data_split` and paste your numbers h
 
 | Metric | Score |
 |---|---|
-| Accuracy | _fill in_ |
-| Precision | _fill in_ |
-| Recall (sensitivity) | _fill in_ |
-| Specificity | _fill in_ |
-| F1 | _fill in_ |
-| ROC-AUC | _fill in_ |
+| Accuracy | 0.9778 |
+| Precision | 1.0 |
+| Recall (sensitivity) | 0.8667 |
+| Specificity | 1.0 |
+| F1 | 0.9286 |
+| ROC-AUC | 0.9989 |
 
 The script also writes `reports/confusion_matrix.png`, `reports/roc_curve.png`, and `reports/threshold_sweep.csv` — add the plots here to make this section shine.
 
