@@ -27,7 +27,7 @@ The app accepts both **file uploads** and **mobile camera** input, and for every
 Trained on the **Tuberculosis (TB) Chest X-ray Database** (Qatar University, University of Dhaka, and collaborators)  3,500 TB and 3,500 Normal 512×512 chest X-rays.
 
 <p align="center">
-  <img src="assets/sample_xrays.png" alt="Sample chest X-rays" width="70%">
+  <img src="Normal-88.png" alt="Sample chest X-rays" width="70%">
 </p>
 
 ## Key features
