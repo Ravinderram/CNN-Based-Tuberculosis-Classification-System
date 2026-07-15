@@ -16,13 +16,13 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 This project classifies chest X-rays as **Normal** or **Tuberculosis** using a convolutional neural network. It started as a simple from-scratch CNN and was rebuilt into a full, tested pipeline: you point it at one folder of images and it automatically splits the data, trains a model, evaluates it, and serves predictions through a web app.
 
 The app accepts both **file uploads** and **mobile camera** input, and for every prediction it shows not just a label but a **confidence interval** (how sure the model is) and a **Grad-CAM heatmap** (where the model looked).
 
-## 🖼️ The data
+##  The data
 
 Trained on the **Tuberculosis (TB) Chest X-ray Database** (Qatar University, University of Dhaka, and collaborators) — 3,500 TB and 3,500 Normal 512×512 chest X-rays.
 
@@ -30,19 +30,19 @@ Trained on the **Tuberculosis (TB) Chest X-ray Database** (Qatar University, Uni
   <img src="assets/sample_xrays.png" alt="Sample chest X-rays" width="70%">
 </p>
 
-## ✨ Key features
+## Key features
 
 | Feature | What it does |
 |---|---|
-| 🔀 **One-command pipeline** | Paste a single folder path → auto stratified train/val/test split → train → save |
-| 🧠 **Transfer learning** | MobileNetV2 pretrained on ImageNet, not a fragile from-scratch CNN |
-| 📊 **Uncertainty** | Monte-Carlo dropout gives a probability *and* a 95% confidence interval per prediction |
-| 🔥 **Explainability** | Grad-CAM heatmaps reveal which lung regions drove the decision |
-| 📷 **Camera input** | Upload a file or capture with your phone camera (Streamlit) |
-| 📈 **Real evaluation** | Accuracy, precision, recall, specificity, F1, ROC-AUC, confusion matrix, threshold sweep |
-| ✅ **Tested** | 38 unit tests; the core logic runs in CI with no GPU or TensorFlow needed |
+|  **One-command pipeline** | Paste a single folder path → auto stratified train/val/test split → train → save |
+|  **Transfer learning** | MobileNetV2 pretrained on ImageNet, not a fragile from-scratch CNN |
+|  **Uncertainty** | Monte-Carlo dropout gives a probability *and* a 95% confidence interval per prediction |
+|  **Explainability** | Grad-CAM heatmaps reveal which lung regions drove the decision |
+|  **Camera input** | Upload a file or capture with your phone camera (Streamlit) |
+|  **Real evaluation** | Accuracy, precision, recall, specificity, F1, ROC-AUC, confusion matrix, threshold sweep |
+|  **Tested** | 38 unit tests; the core logic runs in CI with no GPU or TensorFlow needed |
 
-## 🚀 Quick start
+##  Quick start
 
 ```bash
 # 1. clone and enter
@@ -73,7 +73,7 @@ python scripts/evaluate.py --split-dir data_split
 streamlit run app.py
 ```
 
-> 💡 Training on a CPU is slow (a few hours for 7,000 images). A GPU — including Google Colab's free tier — cuts this to minutes.
+>  Training on a CPU is slow (a few hours for 7,000 images). A GPU — including Google Colab's free tier — cuts this to minutes.
 
 ### Dataset layout
 
@@ -87,9 +87,9 @@ TB_Chest_Radiography_Database/
 
 The training script auto-creates a stratified, seeded 70/15/15 split under `data_split/` — no manual sorting.
 
-## 📱 The app
+##  The app
 
-<!-- 👉 After running `streamlit run app.py`, take screenshots and replace these lines: -->
+<!--  After running `streamlit run app.py`, take screenshots and replace these lines: -->
 <!-- ![Upload prediction](assets/screenshot_prediction.png) -->
 <!-- ![Grad-CAM heatmap](assets/screenshot_gradcam.png) -->
 
@@ -99,7 +99,7 @@ The app has two tabs:
 - **📁 Upload** — drag in a chest X-ray (`.png/.jpg`); most reliable.
 - **📷 Camera** — capture with your device camera (works on mobile browsers). Great for demos; note that camera glare/angle lower reliability, so it is labelled demo-only in the UI.
 
-## 📊 Results
+##  Results
 
 Run `python scripts/evaluate.py --split-dir data_split` and paste your numbers here:
 
@@ -114,7 +114,7 @@ Run `python scripts/evaluate.py --split-dir data_split` and paste your numbers h
 
 The script also writes `reports/confusion_matrix.png`, `reports/roc_curve.png`, and `reports/threshold_sweep.csv` — add the plots here to make this section shine.
 
-## 🗂️ Project structure
+##  Project structure
 
 ```
 tb-classifier/
@@ -137,24 +137,24 @@ tb-classifier/
 └── assets/                 images used in this README
 ```
 
-## 🧠 How it works
+##  How it works
 
 1. **Preprocessing** resizes each X-ray to 224×224 and scales pixels to `[0,1]`, after validating the file is a real, safe image.
 2. **MobileNetV2** (pretrained on ImageNet) extracts features; a small trained head outputs `P(Tuberculosis)`.
 3. **Monte-Carlo dropout** keeps dropout active at inference and runs 30 stochastic passes, so each prediction has a mean probability and a spread → a confidence interval.
 4. **Grad-CAM** back-propagates the score to the last convolutional layer to highlight the regions that mattered — a check that the model looks at lungs, not text or borders.
 
-## 🛠️ Tech stack
+##  Tech stack
 
 Python · TensorFlow / Keras 3 · MobileNetV2 · Streamlit · FastAPI · Flask · NumPy · Pillow · Matplotlib · pytest
 
-## 📚 Dataset citation
+##  Dataset citation
 
 If you use the dataset, please cite:
 
 > T. Rahman, A. Khandakar, M. A. Kadir, K. R. Islam, K. F. Islam, Z. B. Mahbub, M. A. Ayari, M. E. H. Chowdhury, *"Reliable Tuberculosis Detection using Chest X-ray with Deep Learning, Segmentation and Visualization,"* IEEE Access, vol. 8, pp. 191586–191601, 2020. DOI: 10.1109/ACCESS.2020.3031384.
 
-## ⚖️ License
+##  License
 
 Released under the MIT License — see [LICENSE](LICENSE). The dataset is subject to its own terms; see the citation above.
 
